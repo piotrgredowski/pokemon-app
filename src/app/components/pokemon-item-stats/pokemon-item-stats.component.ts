@@ -1,13 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-
-interface PokemonStats {
-  base_stat: number;
-  effort: number;
-  stat: {
-    name: string;
-    url: string;
-  };
-}
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-pokemon-item-stats',
@@ -21,7 +12,5 @@ export class PokemonItemStatsComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    console.log(this.stats);
-  }
+  ngOnInit() {}
 }

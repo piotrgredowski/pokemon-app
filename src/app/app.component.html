@@ -1,4 +1,11 @@
-<h1>Pokemon App</h1>
+<header>
+  <h1>Pokemon App</h1>
+</header>
+<nav *ngIf="homeButtonShouldBeVisible()">
+  <h2>
+    <a mat-stroked-button routerLink="/" routerLinkActive="active">Go to home page</a>
+  </h2>
+</nav>
 <main>
   <router-outlet></router-outlet>
 </main>

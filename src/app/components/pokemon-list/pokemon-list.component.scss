@@ -1,0 +1,26 @@
+.details {
+  justify-content: end;
+}
+
+.pokemon-list-container {
+  position: relative;
+  min-height: 200px;
+  width: 500px;
+
+  table {
+    width: 100%;
+
+    .name {
+      width: 70%;
+    }
+
+    .details {
+      width: 30%;
+      text-align: center;
+    }
+  }
+
+  mat-paginator {
+    position: relative;
+  }
+}

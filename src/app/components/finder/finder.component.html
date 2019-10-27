@@ -1,8 +1,14 @@
 <div fxLayout="row">
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" fxFlex="1 1 auto">
     <mat-label>Find your Pokemon</mat-label>
-    <input matInput placeholder="Name or ID of Pokemon" #idInput />
+    <input
+      matInput
+      (keyup.enter)="searchFor(idInput.value)"
+      placeholder="Name or ID of Pokemon"
+      #idInput
+    />
     <button
+      type="submit"
       mat-button
       matSuffix
       mat-icon-button
