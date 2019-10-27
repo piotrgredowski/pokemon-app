@@ -6,7 +6,7 @@ class ApiUrls {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
   browserURL = 'https://pokeapi.co/api/v2/pokemon/?limit=20&offset=';

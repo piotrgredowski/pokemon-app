@@ -1,0 +1,27 @@
+<mat-card class="example-card">
+  <mat-card-header fxLayoutAlign="start center">
+    <img
+      mat-card-avatar
+      [src]="pokemonData?.sprites?.front_default"
+      alt="Picture with Pokemon {{ pokemonData?.name | titlecase }}"
+    />
+    <mat-card-title>{{ pokemonData?.name | titlecase }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <app-pokemon-item-stats [stats]="pokemonData?.stats"></app-pokemon-item-stats>
+  </mat-card-content>
+  <mat-card-actions fxLayoutAlign="space-between center">
+    <button mat-button [disabled]="!canGoToPreviousPokemon()" (click)="goToPreviousPokemon()">
+      <div fxLayoutAlign="center center">
+        <mat-icon>chevron_left</mat-icon>
+        PREVIOUS
+      </div>
+    </button>
+    <button mat-button [disabled]="!canGoToNextPokemon()" (click)="goToNextPokemon()">
+      <div fxLayoutAlign="center center">
+        NEXT
+        <mat-icon>chevron_right</mat-icon>
+      </div>
+    </button>
+  </mat-card-actions>
+</mat-card>
