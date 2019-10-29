@@ -1,4 +1,5 @@
 <section class="pokemon-list-container">
+  <app-spinner></app-spinner>
   <div class="table-container">
     <table mat-table [dataSource]="pokemonsList">
       <ng-container matColumnDef="name">
@@ -24,9 +25,9 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>
-  <mat-paginator
-    [length]="resultsCount"
-    [pageSize]="itemsPerPage"
-    showFirstLastButtons
-  ></mat-paginator>
 </section>
+<mat-paginator
+  [length]="resultsCount"
+  [pageSize]="itemsPerPage"
+  showFirstLastButtons
+></mat-paginator>

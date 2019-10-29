@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { of, Subject } from 'rxjs';
-import { catchError, concatMap, map, takeUntil } from 'rxjs/operators';
+import { catchError, concatMap, delay, map, takeUntil } from 'rxjs/operators';
 
 import { ApiService } from '../../services/api.service';
+import { SpinnerService } from '../../services/spinner.service';
 
 @Component({
   selector: 'app-pokemon-view',
@@ -18,15 +19,20 @@ export class PokemonViewComponent implements OnInit, OnDestroy {
   currentId: number;
 
   errorWhileLoadingData = false;
-  loadingData = false;
 
-  constructor(private route: ActivatedRoute, private router: Router, private api: ApiService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private api: ApiService,
+    private spinnerService: SpinnerService
+  ) {}
 
   ngOnInit() {
     this.route.params
       .pipe(
+        delay(0),
         map((params: Params & { id: string }) => {
-          this.loadingData = true;
+          this.spinnerService.enable(2);
           this.errorWhileLoadingData = false;
           this.nameOrId = params.id;
           return params.id;
@@ -35,7 +41,7 @@ export class PokemonViewComponent implements OnInit, OnDestroy {
           return this.api.getPokemonWithId(id);
         }),
         catchError(() => {
-          this.loadingData = false;
+          this.spinnerService.forceDisable();
           this.errorWhileLoadingData = true;
           return of([]);
         }),
@@ -44,13 +50,17 @@ export class PokemonViewComponent implements OnInit, OnDestroy {
       .subscribe((pokemonData: PokemonData) => {
         this.currentId = Number(pokemonData.id);
         this.pokemonData = pokemonData;
-        this.loadingData = false;
+        this.spinnerService.disable();
       });
   }
 
   ngOnDestroy() {
     this.destroyed.next();
     this.destroyed.complete();
+  }
+
+  disableSpinner() {
+    this.spinnerService.disable();
   }
 
   isPokemonDataAvailable() {

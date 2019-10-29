@@ -3,14 +3,18 @@
 }
 
 mat-card {
-  mat-card-header {
-    img {
-      height: 80px;
-      width: 80px;
-    }
-  }
+  .header-and-content-container {
+    position: relative;
 
-  mat-card-title {
-    margin: 0;
+    mat-card-header {
+      img {
+        height: 80px;
+        width: 80px;
+      }
+    }
+
+    mat-card-title {
+      margin: 0;
+    }
   }
 }

@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { of, Subject } from 'rxjs';
-import { catchError, map, startWith, switchMap, takeUntil } from 'rxjs/operators';
+import { catchError, delay, map, startWith, switchMap, takeUntil } from 'rxjs/operators';
 
 import { ApiService } from '../../services/api.service';
+import { SpinnerService } from '../../services/spinner.service';
 import { PokemonPaginator } from './pokemon-paginator';
 
 @Component({
@@ -17,16 +18,13 @@ export class PokemonListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   pokemonsList: PokemonListItem[];
   displayedColumns: string[] = ['name', 'details'];
-  pageEvent: PageEvent;
-
-  loadingData = false;
 
   itemsPerPage = 10;
   resultsCount = 10 * this.itemsPerPage;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, private spinnerService: SpinnerService) {}
 
   ngOnInit() {}
 
@@ -34,22 +32,23 @@ export class PokemonListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.paginator.page
       .pipe(
         startWith({}),
+        delay(0),
         switchMap(() => {
-          this.loadingData = true;
+          this.spinnerService.enable();
           return this.api.getPage(this.paginator.pageIndex + 1);
         }),
         map(receivedData => {
           return receivedData.results;
         }),
         catchError(() => {
-          this.loadingData = false;
+          this.spinnerService.forceDisable();
           return of([]);
         }),
         takeUntil(this.destroyed)
       )
       .subscribe(data => {
         this.pokemonsList = data;
-        this.loadingData = false;
+        this.spinnerService.disable();
       });
   }
 

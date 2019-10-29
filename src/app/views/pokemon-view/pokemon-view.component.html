@@ -1,37 +1,35 @@
-<ng-container *ngIf="loadingData; then loadingInfo; else loadedData"></ng-container>
-<ng-template #loadingInfo>Loading...</ng-template>
-<ng-template #loadedData>
-  <mat-card>
+<mat-card>
+  <div class="header-and-content-container">
+    <app-spinner></app-spinner>
     <div *ngIf="errorWhileLoadingData; else pokemonFound">
       Pokemon with ID/name "{{ this.nameOrId }}" was not found.
     </div>
-    <ng-template #pokemonFound>
-      <mat-card-header fxLayoutAlign="start center">
-        <img
-          *ngIf="isPokemonDataAvailable()"
-          mat-card-avatar
-          [src]="pokemonData?.sprites?.front_default"
-          alt="Picture with Pokemon {{ pokemonData?.name | titlecase }}"
-        />
-        <mat-card-title>{{ pokemonData?.name | titlecase }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <app-pokemon-item-stats [stats]="pokemonData?.stats"></app-pokemon-item-stats>
-      </mat-card-content>
-      <mat-card-actions fxLayoutAlign="space-between center">
-        <button mat-button [disabled]="!canGoToPreviousPokemon()" (click)="goToPreviousPokemon()">
-          <div fxLayoutAlign="center center">
-            <mat-icon>chevron_left</mat-icon>
-            PREVIOUS
-          </div>
-        </button>
-        <button mat-button (click)="goToNextPokemon()">
-          <div fxLayoutAlign="center center">
-            NEXT
-            <mat-icon>chevron_right</mat-icon>
-          </div>
-        </button>
-      </mat-card-actions>
-    </ng-template>
-  </mat-card>
-</ng-template>
+    <mat-card-header fxLayoutAlign="start center">
+      <img
+        *ngIf="isPokemonDataAvailable()"
+        mat-card-avatar
+        [src]="pokemonData?.sprites?.front_default"
+        (load)="disableSpinner()"
+        alt="Picture with Pokemon {{ pokemonData?.name | titlecase }}"
+      />
+      <mat-card-title>{{ pokemonData?.name | titlecase }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <app-pokemon-item-stats [stats]="pokemonData?.stats"></app-pokemon-item-stats>
+    </mat-card-content>
+  </div>
+  <mat-card-actions fxLayoutAlign="space-between center">
+    <button mat-button [disabled]="!canGoToPreviousPokemon()" (click)="goToPreviousPokemon()">
+      <div fxLayoutAlign="center center">
+        <mat-icon>chevron_left</mat-icon>
+        PREVIOUS
+      </div>
+    </button>
+    <button mat-button (click)="goToNextPokemon()">
+      <div fxLayoutAlign="center center">
+        NEXT
+        <mat-icon>chevron_right</mat-icon>
+      </div>
+    </button>
+  </mat-card-actions>
+</mat-card>
