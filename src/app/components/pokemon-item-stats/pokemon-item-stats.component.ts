@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import { PokemonStats } from '../../interfaces';
+
 @Component({
   selector: 'app-pokemon-item-stats',
   templateUrl: './pokemon-item-stats.component.html',

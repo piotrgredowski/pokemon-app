@@ -1,13 +1,13 @@
-interface PokemonListItem {
+export interface PokemonListItem {
   name: string;
   url: string;
 }
 
-interface PokemonsPage {
+export interface PokemonsPage {
   results: PokemonListItem[];
 }
 
-interface PokemonStats {
+export interface PokemonStats {
   base_stat: number;
   effort: number;
   stat: {
@@ -16,7 +16,7 @@ interface PokemonStats {
   };
 }
 
-interface PokemonData {
+export interface PokemonData {
   id: string;
   name: string;
   sprites: {

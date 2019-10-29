@@ -3,6 +3,7 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { of, Subject } from 'rxjs';
 import { catchError, delay, map, startWith, switchMap, takeUntil } from 'rxjs/operators';
 
+import { PokemonListItem } from '../../interfaces';
 import { ApiService } from '../../services/api.service';
 import { SpinnerService } from '../../services/spinner.service';
 import { PokemonPaginator } from './pokemon-paginator';

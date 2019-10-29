@@ -5,4 +5,11 @@ describe('ReplaceHyphensWithSpacesPipe', () => {
     const pipe = new ReplaceHyphensWithSpacesPipe();
     expect(pipe).toBeTruthy();
   });
+
+  it('converts string', () => {
+    const pipe = new ReplaceHyphensWithSpacesPipe();
+    expect(pipe.transform('aaaa-bbbb')).toBe('aaaa bbbb');
+    expect(pipe.transform('---aaaa-bbbb')).toBe('   aaaa bbbb');
+    expect(pipe.transform('aaa-a-b-bbb')).toBe('aaa a b bbb');
+  });
 });

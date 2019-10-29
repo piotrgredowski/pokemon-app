@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { PokemonData, PokemonsPage } from '../interfaces';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -12,19 +14,19 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  private getURLforPage(pageNumber: number) {
+  private getUrlForPage(pageNumber: number) {
     return `${this.browserURL}${(pageNumber - 1) * this.itemsPerPage}`;
   }
 
   getPage(pageNumber: number): Observable<PokemonsPage> {
-    return this.http.get<PokemonsPage>(this.getURLforPage(pageNumber));
+    return this.http.get<PokemonsPage>(this.getUrlForPage(pageNumber));
   }
 
-  private getURLforID(id: string | number): string {
+  private getUrlForId(id: string | number): string {
     return this.idURL + String(id).toLowerCase();
   }
 
   getPokemonWithId(id: string): Observable<PokemonData> {
-    return this.http.get<PokemonData>(this.getURLforID(id));
+    return this.http.get<PokemonData>(this.getUrlForId(id));
   }
 }

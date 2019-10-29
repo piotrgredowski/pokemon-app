@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { of, Subject } from 'rxjs';
 import { catchError, concatMap, delay, map, takeUntil } from 'rxjs/operators';
 
+import { PokemonData } from '../../interfaces';
 import { ApiService } from '../../services/api.service';
 import { SpinnerService } from '../../services/spinner.service';
 
